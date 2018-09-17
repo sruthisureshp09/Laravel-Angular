@@ -8,7 +8,8 @@ class CategoryController extends Controller
 {
     public function index()
     {
-        return Category::get();
+        $categories= Category::all();
+        return response()->json([$categories ]);
     }
     public function store(Request $request)
     {
@@ -16,7 +17,10 @@ class CategoryController extends Controller
         $category = new Category();
         $category->category_name = $request->category_name;
         $category->save();
-        return "success";
+        return response()->json([
+            'data ' => "success" ,
+           
+            ],200);
     }
     public function destroy($id)
     {
