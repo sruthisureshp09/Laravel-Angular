@@ -3,17 +3,31 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-use App\Category;
-class CategoryController extends Controller
+use App\User;
+use Auth;
+class UserController extends Controller
 {
     /**
      * Display a listing of the resource.
      *
      * @return \Illuminate\Http\Response
      */
+    public function checkAuth(Request $request){
+        $credentials= [
+            'email'=> $request->email,
+            'password' => $request->password
+        ];
+
+        if(! Auth::attempt($credentials))
+        {
+            return "Username or Password doesn't match";
+        }
+        return response(Auth::user());
+
+    }
     public function index()
     {
-        return Category::all();
+        //
     }
 
     /**
@@ -21,7 +35,11 @@ class CategoryController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    
+    public function create()
+    {
+        //
+    }
+
     /**
      * Store a newly created resource in storage.
      *
@@ -30,13 +48,7 @@ class CategoryController extends Controller
      */
     public function store(Request $request)
     {
-        $category = new Category();
-        $category->category_name = $request->category_name;
-        $category->save();
-        return response()->json([
-            'data ' => "success" ,
-           
-            ],200);
+        //
     }
 
     /**
@@ -47,7 +59,7 @@ class CategoryController extends Controller
      */
     public function show($id)
     {
-        return Category::find($id);
+        //
     }
 
     /**
@@ -81,10 +93,6 @@ class CategoryController extends Controller
      */
     public function destroy($id)
     {
-         // Delete the Product
-         if ($id != null) {
-            $product = Category::find($id);
-            $product->delete();    
-        }
+        //
     }
 }
