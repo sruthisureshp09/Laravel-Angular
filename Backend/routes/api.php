@@ -23,10 +23,17 @@ Route::group([
     Route::post('login', 'AuthController@login');
     Route::post('logout', 'AuthController@logout');
     Route::post('refresh', 'AuthController@refresh');
-    Route::post('me', 'AuthController@me');
+    Route::get('me', 'AuthController@me');
 
 });
 
 Route::resource('categories', 'CategoryController');
+Route::resource('subcategories', 'SubCategoryController');
+Route::post('storesubcategories/{id}', 'SubCategoryController@storeSub');
+Route::get('showsubcategories/{id}', 'SubCategoryController@showSub');
+Route::get('getall', 'CategoryController@all');
+
+
+
 Route::resource('user', 'UserController');
 //Route::post('login',  'UserController@checkAuth'); 
