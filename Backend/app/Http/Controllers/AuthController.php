@@ -38,9 +38,10 @@ class AuthController extends Controller
      *
      * @return \Illuminate\Http\JsonResponse
      */
-    public function me()
+    public function me(Request $request)
+   
     {
-        return response()->json(Auth::user());
+        return response()->json($request->user());
     }
 
     /**

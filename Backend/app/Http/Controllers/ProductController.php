@@ -3,8 +3,8 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-use App\Category;
-class CategoryController extends Controller
+use App\Product;
+class ProductController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -13,10 +13,7 @@ class CategoryController extends Controller
      */
     public function index()
     {
-        
-        return  Category::where('parent_id', '=' , 0)->get();
-
-       
+       return  Product::all();
     }
 
     /**
@@ -24,7 +21,7 @@ class CategoryController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    
+
     /**
      * Store a newly created resource in storage.
      *
@@ -33,14 +30,41 @@ class CategoryController extends Controller
      */
     public function store(Request $request)
     {
-        $category = new Category();
-        $category->category_name = $request->category_name;
-        $category->save();
+        /* $this->validate($request,[
+           
+            'zip'=>'string|regex:/[0-9]{6}/|digits:6',
+        ]); */
+       /*  if($request->phone1 !="")
+        {
+            $this->validate($request,[
+                'phone1'=>'string|regex:/[0-9]{10}/|digits:10',
+            ]);
+        } */
+
+        Product::create([
+            'title'=>$request->title,
+            'add1'=>$request->add1,
+            'add2'=>$request->add2,
+            'country'=>$request->country,
+            'state'=>$request->state,
+            'city'=>$request->city,
+            'zip'=>$request->zip,
+            'phone1'=>$request->phone1,
+            'phone2'=>$request->phone2,
+            'imagepath'=>$request->images,
+            'offers'=>$request->offers,
+            'type'=>$request->type,
+            'events'=>$request->events,
+            'category_id'=>$request->category_id,
+        ]);
         return response()->json([
             'data ' => "success" ,
            
             ],200);
+    
+
     }
+
 
     /**
      * Display the specified resource.
@@ -50,7 +74,7 @@ class CategoryController extends Controller
      */
     public function show($id)
     {
-        return Category::find($id);
+        //
     }
 
     /**
@@ -59,6 +83,10 @@ class CategoryController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
+    public function edit($id)
+    {
+        //
+    }
 
     /**
      * Update the specified resource in storage.
@@ -69,15 +97,7 @@ class CategoryController extends Controller
      */
     public function update(Request $request, $id)
     {
-        $data=array(
-            'category_name'=>$request->category_name,
-           
-        );
-        Category::find($id)->update($data);
-        return response()->json([
-            'data ' => "success" ,
-           
-            ],200);
+        //
     }
 
     /**
@@ -88,14 +108,6 @@ class CategoryController extends Controller
      */
     public function destroy($id)
     {
-         // Delete the Product
-         if ($id != null) {
-            $product = Category::find($id);
-            $product->delete();    
-        }
-        return response()->json([
-            'data ' => "success" ,
-           
-            ],200);
+        //
     }
 }
