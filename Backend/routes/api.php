@@ -32,6 +32,7 @@ Route::resource('subcategories', 'SubCategoryController');
 Route::post('storesubcategories/{id}', 'SubCategoryController@storeSub');
 Route::get('showsubcategories/{id}', 'SubCategoryController@showSub');
 Route::resource('products', 'ProductController');
+Route::post('fileupload','ProductController@uploadMultiFiles');
 
 
 

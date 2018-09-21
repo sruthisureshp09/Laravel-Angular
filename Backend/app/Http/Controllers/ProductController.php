@@ -74,7 +74,7 @@ class ProductController extends Controller
      */
     public function show($id)
     {
-        //
+        return Product::find($id);
     }
 
     /**
@@ -97,7 +97,29 @@ class ProductController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        $data=array(
+            
+            'title'=>$request->title,
+            'add1'=>$request->add1,
+            'add2'=>$request->add2,
+            'country'=>$request->country,
+            'state'=>$request->state,
+            'city'=>$request->city,
+            'zip'=>$request->zip,
+            'phone1'=>$request->phone1,
+            'phone2'=>$request->phone2,
+            'imagepath'=>$request->images,
+            'offers'=>$request->offers,
+            'type'=>$request->type,
+            'events'=>$request->events,
+            'category_id'=>$request->category_id,
+           
+        );
+        Product::find($id)->update($data);
+        return response()->json([
+            'data ' => "success" ,
+           
+            ],200);
     }
 
     /**
@@ -108,6 +130,55 @@ class ProductController extends Controller
      */
     public function destroy($id)
     {
-        //
+        if ($id != null) {
+            $product = Product::find($id);
+            $product->delete();    
+        }
+        return response()->json([
+            'data ' => "success" ,
+           
+            ],200);
+    
     }
+
+
+    public function uploadMultiFiles(Request $request) 
+	 	{
+
+            return $request;
+            die;
+
+             $data[]="";	 		
+            if($request->hasfile('fileInfo'))
+
+            {
+                return "hiiii";
+                die;
+   
+               foreach($request->file('fileInfo') as $file)
+   
+               {
+   
+                   $name=$file->getClientOriginalName();
+   
+                   $file->move(public_path().'/files/', $name);  
+   
+                   $data[] = $name;  
+   
+               }
+   
+            }
+   
+   
+   
+          /*   $file= new File();
+   
+            $file->filenames=json_encode($data);
+   
+            $file->save(); */
+
+			return json_encode($data);
+	 	}
+	 
+
 }
