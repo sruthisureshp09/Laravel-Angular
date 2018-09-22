@@ -51,7 +51,7 @@ class ProductController extends Controller
             'zip'=>$request->zip,
             'phone1'=>$request->phone1,
             'phone2'=>$request->phone2,
-            'imagepath'=>$request->images,
+           // 'imagepath'=>$request->images,
             'offers'=>$request->offers,
             'type'=>$request->type,
             'events'=>$request->events,
