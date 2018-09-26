@@ -38,10 +38,9 @@ class AuthController extends Controller
      *
      * @return \Illuminate\Http\JsonResponse
      */
-    public function me(Request $request)
-   
+    public function me()
     {
-        return response()->json($request->user());
+        return response()->json(auth()->user());
     }
 
     /**
@@ -49,11 +48,12 @@ class AuthController extends Controller
      *
      * @return \Illuminate\Http\JsonResponse
      */
-    public function logout()
+    public function logout(Request $request)
     {
-        auth()->logout();
+    return 'ghj';
+        //auth()->logout();
 
-        return response()->json(['message' => 'Successfully logged out']);
+        //return response()->json(['message' => 'Successfully logged out']);
     }
 
     /**
@@ -79,7 +79,7 @@ class AuthController extends Controller
             'access_token' => $token,
             'token_type' => 'bearer',
             'expires_in' => auth()->factory()->getTTL() * 60,
-            'user' => auth()->user()->name
+            'user' => auth()->user(),
         ]);
     }
 }
