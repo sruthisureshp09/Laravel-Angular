@@ -13,7 +13,7 @@ class ProductController extends Controller
      */
     public function index()
     {
-       return  Product::all();
+       return  Product::orderBy('id','desc')->get();
     }
 
     /**
@@ -51,6 +51,7 @@ class ProductController extends Controller
             'zip'=>$request->zip,
             'phone1'=>$request->phone1,
             'phone2'=>$request->phone2,
+            'email'=>$request->email,
            // 'imagepath'=>$request->images,
             'offers'=>$request->offers,
             'type'=>$request->type,
@@ -108,6 +109,7 @@ class ProductController extends Controller
             'zip'=>$request->zip,
             'phone1'=>$request->phone1,
             'phone2'=>$request->phone2,
+            'email '=>$request->email,
             'imagepath'=>$request->images,
             'offers'=>$request->offers,
             'type'=>$request->type,

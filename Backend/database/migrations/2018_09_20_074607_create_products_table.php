@@ -26,6 +26,7 @@ class CreateProductsTable extends Migration
             $table->string('state');
             $table->integer('zip');
             $table->string('phone1');
+            $table->string('email')->unique();
             $table->string('phone2')->nullable();
             $table->string('imagepath')->nullable();
             $table->string('offers')->nullable();
