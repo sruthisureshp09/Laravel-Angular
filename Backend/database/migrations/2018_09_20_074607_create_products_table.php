@@ -32,6 +32,7 @@ class CreateProductsTable extends Migration
             $table->string('offers')->nullable();
             $table->string('type')->nullable();
             $table->string('events')->nullable();
+            $table->boolean('featured');
             $table->timestamps();
         });
     }

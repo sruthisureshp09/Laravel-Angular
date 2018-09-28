@@ -4,6 +4,8 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Category;
+use DB;
+use App\Product;
 class CategoryController extends Controller
 {
     /**
@@ -14,9 +16,29 @@ class CategoryController extends Controller
     public function index()
     {
         
-        return  Category::where('parent_id', '=' , 0)->get();
+        return  Category::where('parent_id', '=' , 0)->orderBy('id','desc')->get();
 
        
+    }
+
+    public function featured_category()
+    {
+       //return  Category::inRandomOrder()->limit(6)->where('featured' , 1)->get();
+      // return Category::where('featured',1)->orderBy(DB::raw('RAND(6)'))->get();
+      
+      // $listing_count = Product::where('category_id', $id)->count();
+    
+      
+       return DB::table("categories")
+
+       ->select("categories.*", DB::raw("count(products.id) as count"))
+
+       ->join("products","products.category_id","=","categories.id")
+
+       ->groupBy("categories.id")
+
+       ->get();
+
     }
 
     /**
@@ -35,6 +57,7 @@ class CategoryController extends Controller
     {
         $category = new Category();
         $category->category_name = $request->category_name;
+        $category->featured = $request->featured;
         $category->save();
         return response()->json([
             'data ' => "success" ,
@@ -71,6 +94,8 @@ class CategoryController extends Controller
     {
         $data=array(
             'category_name'=>$request->category_name,
+            'featured' => $request->featured,
+            
            
         );
         Category::find($id)->update($data);
@@ -90,8 +115,8 @@ class CategoryController extends Controller
     {
          // Delete the Product
          if ($id != null) {
-            $product = Category::find($id);
-            $product->delete();    
+            $category = Category::find($id);
+            $category->delete();    
         }
         return response()->json([
             'data ' => "success" ,

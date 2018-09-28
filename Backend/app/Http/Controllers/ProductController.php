@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Product;
+use DB;
 class ProductController extends Controller
 {
     /**
@@ -14,6 +15,15 @@ class ProductController extends Controller
     public function index()
     {
        return  Product::orderBy('id','desc')->get();
+    }
+
+    public function featured_product()
+    {
+       //return  Product::where('featured',1)->orderBy('id','desc')->get();
+       return Product::where('featured',1)->orderBy(DB::raw('RAND(6)'))->get();
+
+
+       
     }
 
     /**
@@ -57,6 +67,7 @@ class ProductController extends Controller
             'type'=>$request->type,
             'events'=>$request->events,
             'category_id'=>$request->category_id,
+            'featured'=>$request->featured,
         ]);
         return response()->json([
             'data ' => "success" ,
@@ -115,6 +126,7 @@ class ProductController extends Controller
             'type'=>$request->type,
             'events'=>$request->events,
             'category_id'=>$request->category_id,
+            'featured'=>$request->featured,
            
         );
         Product::find($id)->update($data);
@@ -148,7 +160,7 @@ class ProductController extends Controller
 	 	{
 
             return $request;
-            die;
+           /*  die;
 
              $data[]="";	 		
             if($request->hasfile('fileInfo'))
@@ -177,10 +189,10 @@ class ProductController extends Controller
    
             $file->filenames=json_encode($data);
    
-            $file->save(); */
-
-			return json_encode($data);
-	 	}
+            $file->save(); }*/
+        }
+			
+	 	
 	 
 
 }

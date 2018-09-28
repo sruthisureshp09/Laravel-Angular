@@ -28,10 +28,14 @@ Route::group([
 });
 
 Route::resource('categories', 'CategoryController');
+Route::get('featured_category','CategoryController@featured_category');
+
 Route::resource('subcategories', 'SubCategoryController');
 Route::post('storesubcategories/{id}', 'SubCategoryController@storeSub');
 Route::get('showsubcategories/{id}', 'SubCategoryController@showSub');
 Route::resource('products', 'ProductController');
+Route::get('featured_product','ProductController@featured_product');
+
 Route::post('fileupload','ProductController@uploadMultiFiles');
 
 

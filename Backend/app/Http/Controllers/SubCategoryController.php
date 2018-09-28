@@ -17,6 +17,7 @@ class SubCategoryController extends Controller
         $category = new Category();
         $category->category_name = $request->category_name;
         $category->parent_id = $id;
+        $category->featured = $request->featured;
         $category->save();
         return response()->json([
             'data ' => "success" ,
@@ -92,6 +93,7 @@ class SubCategoryController extends Controller
     {
         $data=array(
             'category_name'=>$request->category_name,
+            'featured' => $request->category_name,
            
         );
         Category::find($id)->update($data);

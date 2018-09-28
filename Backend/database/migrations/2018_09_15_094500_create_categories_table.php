@@ -17,7 +17,7 @@ class CreateCategoriesTable extends Migration
             $table->increments('id');
             $table->string('category_name')->unique();
             $table->Integer('parent_id')->default(0);
-           // $table->Integer('HasChild')->nullable();            
+            $table->boolean('featured');         
             $table->timestamps();
         });
     }
