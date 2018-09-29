@@ -37,6 +37,7 @@ Route::resource('products', 'ProductController');
 Route::get('featured_product','ProductController@featured_product');
 
 Route::post('fileupload','ProductController@uploadMultiFiles');
+Route::resource('booking', 'BookingController');
 
 
 
