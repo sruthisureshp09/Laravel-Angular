@@ -4,6 +4,8 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Booking;
+use Mail;
+use App\Mail\BookingMail;
 class BookingController extends Controller
 {
     /**
@@ -36,7 +38,7 @@ class BookingController extends Controller
     {
 
         //$year=$request->date
-        Booking::create([
+        $data= Booking::create([
             'firstname'=>$request->firstname,
             'lastname'=>$request->lastname,
             'sdate'=>$request->sdate,
@@ -54,9 +56,22 @@ class BookingController extends Controller
             'product_id'=>$request->product_id,
            
         ]);
-        return response()->json([
+        
+        $users_temp = explode(',', 'first@example.com,second@example.com');
+        $users = [];
+        foreach($users_temp as $key => $ut){
+        $ua = [];
+        $ua['email'] = $ut;
+        //$ua['name'] = 'test';
+        $users[$key] = (object)$ua;
+        }
+         Mail::to($users)->send(new BookingMail($data));
+
+            //Mail::to($request->get('email'))->send(new BookingMail($data));
+        
+      
+            return response()->json([
             'data ' => "success" ,
-           
             ],200);
     
 
